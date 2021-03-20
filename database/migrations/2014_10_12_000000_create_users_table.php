@@ -20,7 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('phone')->comment('手机号');
             $table->string('email')->unique()->comment('邮箱');
             $table->string('password')->comment('密码');
+            $table->tinyInteger('sex')->comment('性别');
             $table->tinyInteger('status')->default(1)->comment('状态');
+            $table->string('config')->comment('各种配置信息');
 
             $table->timestamp('email_verified_at')->nullable()->comment('邮箱认证');
             $table->timestamps();

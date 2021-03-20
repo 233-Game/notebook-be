@@ -17,6 +17,7 @@ class CreateSourcesTable extends Migration
             $table->id();
             $table->tinyInteger('type')->comment('类型');
             $table->text('content')->nullable()->comment('内容 json格式,确保数据的一致性');
+            $table->integer('size')->unsigned()->default(0)->comment('大小');
             $table->timestamps();
         });
     }

@@ -1,6 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Auth\AuthorizesController;
+use App\Http\Controllers\Api\Base\UploadController;
+use App\Http\Controllers\Api\User\InfoController;
+use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +18,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', [LoginController::class, 'login']);
+Route::post('register', [RegisterController::class, 'register']);
+
+Route::post('phone', []);
+Route::post('verify_phone', []);
+
+// 多认证途径
+Route::post('authorizes', [AuthorizesController::class, 'authorizes']);
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('user/info', [InfoController::class, 'show']);
+    Route::post('user/config', [InfoController::class, 'saveConfig']);
+    //通用接口
+    Route::post('upload', [UploadController::class, 'upload']);
 });
