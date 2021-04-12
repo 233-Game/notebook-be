@@ -12,9 +12,10 @@ class LoginController extends ApiController
     public function login(Request $request): \Illuminate\Http\JsonResponse
     {
         $credentials = $this->credentials($request);
-        if (!empty($credentials) && $token = auth('web')->attempt($credentials)) {
+        if (!empty($credentials) && $token = auth('api')->attempt($credentials)) {
             return $this->success([
-                'user' => auth()->user()
+                'user' => auth()->user(),
+                'token' => $token
             ]);
         }
         return $this->failed('用户名或密码错误');

@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthorizesController;
+use App\Http\Controllers\Api\Base\PhoneCodeController;
 use App\Http\Controllers\Api\Base\UploadController;
 use App\Http\Controllers\Api\User\InfoController;
 use App\Http\Controllers\Api\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Api\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [LoginController::class, 'login']);
 Route::post('register', [RegisterController::class, 'register']);
 
-Route::post('phone', []);
-Route::post('verify_phone', []);
+Route::post('phone_code', [PhoneCodeController::class,'code']);
 
 // 多认证途径
 Route::post('authorizes', [AuthorizesController::class, 'authorizes']);
