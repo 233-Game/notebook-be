@@ -9,7 +9,9 @@ use App\Http\Controllers\Controller;
 class InfoController extends Controller
 {
     public function show(){
-        return 'helloworld';
+        return $this->success([
+            'user'
+        ]);
     }
 
 }

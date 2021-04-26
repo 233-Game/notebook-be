@@ -19,11 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('name')->comment('名称');
             $table->string('avatar')->default(Defaults::AVATAR)->comment('头像');
             $table->string('phone')->comment('手机号');
-            $table->string('email')->unique()->comment('邮箱');
+            $table->string('email')->nullable()->comment('邮箱');
             $table->string('password')->comment('密码');
             $table->tinyInteger('sex')->default(3)->comment('性别');
             $table->tinyInteger('status')->default(1)->comment('状态');
 
+            $table->string('remember_token')->nullable()->comment('');
             $table->string('config')->nullable()->comment('各种配置信息');
             $table->timestamp('email_verified_at')->nullable()->comment('邮箱认证');
             $table->timestamps();

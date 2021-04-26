@@ -16,7 +16,7 @@ class RegisterRequest extends BaseRequest
     public function rules()
     {
         return [
-            'phone' => 'required',
+            'phone' => 'required|unique:users,phone',
             'password' => 'required',
             'check_password' => 'required',
             'code' => ['integer','required']
