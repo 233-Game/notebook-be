@@ -18,9 +18,9 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name')->comment('名称');
             $table->string('avatar')->default(Defaults::AVATAR)->comment('头像');
-            $table->string('phone')->comment('手机号');
+            $table->string('phone')->nullable()->comment('手机号');
             $table->string('email')->nullable()->comment('邮箱');
-            $table->string('password')->comment('密码');
+            $table->string('password')->nullable()->comment('密码');
             $table->tinyInteger('sex')->default(3)->comment('性别');
             $table->tinyInteger('status')->default(1)->comment('状态');
 

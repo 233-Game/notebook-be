@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'github' => [
+        'client_id' => 'a315a1eea2520453cd7e',
+        'client_secret' => '41e9b02f3d99f14b963aeb1b37b540341c6e0988',
+        'redirect' => 'http://note.blankqwq.com/authorizes/github/callback',
+    ],
 ];

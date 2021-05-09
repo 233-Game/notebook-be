@@ -15,7 +15,10 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->unsigned()->default(0)->index('UID')->comment('用户id 0->系统自带');
+            $table->integer('user_id')->unsigned()
+                ->default(0)
+                ->index('UID')
+                ->comment('用户id 0->系统自带');
             $table->string('name')->comment('名称');
             $table->string('desc')->comment('简介');
             $table->timestamps();

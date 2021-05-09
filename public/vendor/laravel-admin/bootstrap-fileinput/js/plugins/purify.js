@@ -215,10 +215,10 @@ function createDOMPurify() {
   /* Allow usage of profiles like html, svg and mathMl */
   var USE_PROFILES = {};
 
-  /* Tags to ignore content of when KEEP_CONTENT is true */
+  /* Tag to ignore content of when KEEP_CONTENT is true */
   var FORBID_CONTENTS = addToSet({}, ['audio', 'head', 'math', 'script', 'style', 'template', 'svg', 'video']);
 
-  /* Tags that are safe for data: URIs */
+  /* Tag that are safe for data: URIs */
   var DATA_URI_TAGS = addToSet({}, ['audio', 'video', 'img', 'source', 'image']);
 
   /* Attributes safe for values like "javascript:" */

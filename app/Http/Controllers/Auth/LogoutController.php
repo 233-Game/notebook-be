@@ -15,7 +15,7 @@ class LogoutController extends Controller
 {
     public function __invoke(): \Illuminate\Http\JsonResponse
     {
-        Auth::logout();
+        auth('api')->logout();
         return $this->success(true);
     }
 }

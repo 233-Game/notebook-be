@@ -14,6 +14,11 @@ use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
+    public function isLogin(): \Illuminate\Http\JsonResponse
+    {
+        return $this->success(!auth('api')->guest());
+    }
+
     public function login(Request $request): \Illuminate\Http\JsonResponse
     {
         $remember = $request->input('remember_me', false);
@@ -25,16 +30,7 @@ class LoginController extends Controller
                 'remember_token' => $remember
             ]);
 
-            $data = [
-                'user' => auth('api')->user(),
-                'token' => $token,
-            ];
-
-            if ($remember) {
-                $data['remember_token'] = $remember;
-            }
-
-            return $this->success($data);
+            return $this->loginToken($token, $remember);
         }
         return $this->failed('用户名或密码错误');
     }
@@ -53,13 +49,8 @@ class LoginController extends Controller
         if (!$user) {
             $this->failed('登录失败，清联系管理员');
         }
-        /** @var string $token */
-        $token = auth('api')->login($user);
 
-        return $this->success([
-            'user' => auth('api')->user(),
-            'token' => $token
-        ]);
+        return $this->loginToken(auth('api')->login($user));
     }
 
     private function attempt(Request $request)

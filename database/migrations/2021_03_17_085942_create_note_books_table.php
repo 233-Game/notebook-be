@@ -18,7 +18,7 @@ class CreateNoteBooksTable extends Migration
             $table->id();
             $table->integer("user_id")->unsigned()->index('UID')->comment("创建者id");
 
-            $table->string("title")->comment("标题");
+            $table->string("name")->comment("笔记本名称");
             $table->text("desc")->comment("简介");
             $table->string('config')->comment('配置信息');
             $table->string('version')->comment('版本');

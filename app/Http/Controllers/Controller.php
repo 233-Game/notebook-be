@@ -11,6 +11,19 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected function formatDelete($res): \Illuminate\Http\JsonResponse
+    {
+        if ($res) {
+            return $this->success();
+        }
+        return $this->failed('');
+    }
+
+    protected function formatApplication($res): \Illuminate\Http\JsonResponse
+    {
+        return $this->success();
+    }
+
     protected function failed($message, $code = 1, $data = []): \Illuminate\Http\JsonResponse
     {
         return response()->json([
@@ -29,7 +42,19 @@ class Controller extends BaseController
         ]);
     }
 
-    public function errors($data)
+    protected function loginToken($token, $rememberToken = ''): \Illuminate\Http\JsonResponse
+    {
+        $data = [
+            'user' => auth('api')->user(),
+            'token' => $token,
+        ];
+        if (!empty($rememberToken)) {
+            $data['remember_token'] = $rememberToken;
+        }
+        return $this->success($data);
+    }
+
+    protected function errors($data): \Illuminate\Http\JsonResponse
     {
         return response()->json([
             'message' => 'The given data was invalid.',
