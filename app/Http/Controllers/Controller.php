@@ -11,6 +11,14 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected function format($res)
+    {
+        if ($res) {
+            return $this->success();
+        }
+        return $this->failed('');
+    }
+
     protected function formatDelete($res): \Illuminate\Http\JsonResponse
     {
         if ($res) {
@@ -47,6 +55,7 @@ class Controller extends BaseController
         $data = [
             'user' => auth('api')->user(),
             'token' => $token,
+            'expired_at'=> auth('api')->factory()->getTTL() * 60
         ];
         if (!empty($rememberToken)) {
             $data['remember_token'] = $rememberToken;
@@ -59,6 +68,6 @@ class Controller extends BaseController
         return response()->json([
             'message' => 'The given data was invalid.',
             'data' => $data
-        ]);
+        ])->setStatusCode(422);
     }
 }

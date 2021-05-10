@@ -14,7 +14,7 @@ class CreateNoteBooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
+        Schema::create('note_books', function (Blueprint $table) {
             $table->id();
             $table->integer("user_id")->unsigned()->index('UID')->comment("创建者id");
 
@@ -41,6 +41,6 @@ class CreateNoteBooksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notes');
+        Schema::dropIfExists('note_books');
     }
 }

@@ -22,9 +22,10 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'phone',
+        'sign',
         'remember_token',
         'github_id',
-        'github_name'
+        'github_name',
     ];
 
     /**
@@ -45,6 +46,12 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getSignAttribute($value): string
+    {
+        return $value ?: '设计你的签名~';
+    }
+
 
     public function getJWTIdentifier(): string
     {

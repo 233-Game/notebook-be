@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\ApiDefaultMiddleware;
+use App\Http\Middleware\JwtAuthCheck;
 use App\Http\Middleware\SetAcceptHeader;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -32,14 +33,14 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            ApiDefaultMiddleware::class,
+//            \App\Http\Middleware\EncryptCookies::class,
+//            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+//            \Illuminate\Session\Middleware\StartSession::class,
+//             \Illuminate\Session\Middleware\AuthenticateSession::class,
+//            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
 //            \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            ApiDefaultMiddleware::class
         ],
 
         'api' => [
@@ -66,5 +67,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'jwt.auth' => JwtAuthCheck::class
     ];
 }

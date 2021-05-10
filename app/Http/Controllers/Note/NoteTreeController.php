@@ -1,11 +1,12 @@
 <?php
 
 
-namespace App\Http\Controllers\Api\Note;
+namespace App\Http\Controllers\Note;
 
 
 use App\Application\NoteTree\GetListApplication;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NoteTreeRequest;
 use App\Models\NoteTree;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,8 @@ class NoteTreeController extends Controller
         return $this->formatApplication($application->execute());
     }
 
-    public function create(Request $request){
-        $request->only(['pid','name','type']);
+    public function create(NoteTreeRequest $request){
+        $data = $request->only(['pid','name','type']);
     }
 
     public function delete(NoteTree $tree): \Illuminate\Http\JsonResponse
@@ -26,7 +27,11 @@ class NoteTreeController extends Controller
         return  $this->formatDelete($tree->delete());
     }
 
-    public function update(Request $request){
+    public function show(){
+
+    }
+
+    public function update($id,NoteTreeRequest $request){
         $data = $request->only(['pid','name','type']);
 
     }

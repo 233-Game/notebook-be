@@ -18,7 +18,7 @@ class RegisterRequest extends BaseRequest
         return [
             'phone' => 'required|unique:users,phone',
             'password' => 'required',
-            'check_password' => 'required',
+            'check_password' => 'required|same:password',
             'code' => ['integer','required']
         ];
     }

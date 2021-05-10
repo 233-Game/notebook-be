@@ -16,7 +16,7 @@ class NotebookRequest extends BaseRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required',
         ];
     }
 }

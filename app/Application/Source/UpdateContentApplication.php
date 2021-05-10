@@ -4,13 +4,10 @@
 namespace App\Application\Source;
 
 
-use App\Application\Source\Traits\CalculateSize;
 use App\Models\Source;
 
 class UpdateContentApplication
 {
-    use CalculateSize;
-
     private $data;
     private $id;
 
@@ -23,10 +20,12 @@ class UpdateContentApplication
 
     public function execute()
     {
-        if (Source::find($this->id)->update($this->data + $this->calculateSize($this->data['content']))) {
+        $source = Source::find($this->id);
+        if (!empty($source)) {
             return true;
         }
-        return false;
+        // 需要创建快照,
+        return $source->update($this->data);
     }
 
 }

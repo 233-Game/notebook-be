@@ -18,14 +18,17 @@ class AuthorizesController extends Controller
         if (empty($user)) {
             return $this->failed('授权失败');
         }
+        // 需要跳转到一个设置页面
         return $this->loginToken(auth('api')->login($user));
     }
 
-    public function redirectToProvider(Request $request): \Illuminate\Http\RedirectResponse
+    public function redirectToProvider(Request $request)
     {
         switch ($request->get('type')) {
             case 'github':
                 return redirect()->to(Socialite::create('github')->redirect());
+            default:
+                return $this->failed('无');
         }
     }
 

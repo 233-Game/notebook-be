@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Cast\Json;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,9 +15,12 @@ class Source extends Model
         'type',
         'content',
         'size',
+        'user_id'
     ];
 
-    protected $casts=[
-        'content'=>'array'
+    protected $casts = [
+        'content' => Json::class
     ];
+
+
 }

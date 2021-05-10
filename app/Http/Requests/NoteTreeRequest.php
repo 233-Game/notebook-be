@@ -4,8 +4,17 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PhoneCodeRequest extends BaseRequest
+class NoteTreeRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return false;
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -15,8 +24,7 @@ class PhoneCodeRequest extends BaseRequest
     public function rules()
     {
         return [
-            'type'=>'in:login,register',
-            'phone'=>'required|regex:/^1[^0-2]\d{9}$/'
+            //
         ];
     }
 }

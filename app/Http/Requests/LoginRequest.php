@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PhoneCodeRequest extends BaseRequest
+class LoginRequest extends BaseRequest
 {
 
     /**
@@ -15,7 +15,6 @@ class PhoneCodeRequest extends BaseRequest
     public function rules()
     {
         return [
-            'type'=>'in:login,register',
             'phone'=>'required|regex:/^1[^0-2]\d{9}$/'
         ];
     }
