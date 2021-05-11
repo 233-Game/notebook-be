@@ -24,10 +24,16 @@ class PhoneCodeVerify
         return $this->getData($this->getCacheKey($phone, $type));
     }
 
+    public function clearData($phone, $type): bool
+    {
+        return Cache::forget($this->getCacheKey($phone, $type));
+    }
+
     public function verify($phone, $code, $type): bool
     {
         $data = $this->getDataByPhone($phone, $type);
         if (!empty($data) && $data['code'] === $code) {
+            $this->clearData($phone, $type);
             return true;
         }
         return false;

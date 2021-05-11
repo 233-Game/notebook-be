@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Note\ContentController;
 use App\Http\Controllers\Note\NoteBookController;
 use App\Http\Controllers\Note\NoteTreeController;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('isLogin', [LoginController::class, 'isLogin']);
 Route::post('login', [LoginController::class, 'login']);
+
 Route::post('loginByPhoneCode', [LoginController::class, 'loginByPhoneCode']);
 
 Route::post('register', [RegisterController::class, 'register']);
@@ -87,6 +89,7 @@ Route::middleware(['jwt.auth'])->group(function () {
 
     //通用接口
     Route::post('upload', UploadController::class);
+    Route::post('logout', LogoutController::class);
 });
 
 

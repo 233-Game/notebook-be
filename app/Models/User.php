@@ -52,6 +52,18 @@ class User extends Authenticatable implements JWTSubject
         return $value ?: '设计你的签名~';
     }
 
+    public function getSexAttribute($value): string
+    {
+        switch ($value){
+            case 1:
+                return '男';
+            case 0:
+                return '女';
+            case 3:
+                return '未知';
+        }
+    }
+
 
     public function getJWTIdentifier(): string
     {
