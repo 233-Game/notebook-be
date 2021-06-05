@@ -7,20 +7,26 @@ use App\Models\NoteTree;
 class NoteTreeObserver
 {
 
-    public function creating(NoteTree $noteTree){
-        // 更新path
-
+    public function creating(NoteTree $noteTree)
+    {
+        if ($pid = $noteTree['pid']) {
+            $parent = NoteTree::find($pid);
+            $noteTree['path'] = $parent->path . '/' . $pid;
+        } else {
+            $noteTree['path'] = '';
+        }
     }
 
 
-    public function updating(NoteTree $noteTree){
+    public function updating(NoteTree $noteTree)
+    {
 
     }
 
     /**
      * Handle the NoteTree "created" event.
      *
-     * @param  \App\Models\NoteTree  $noteTree
+     * @param \App\Models\NoteTree $noteTree
      * @return void
      */
     public function created(NoteTree $noteTree)
@@ -31,7 +37,7 @@ class NoteTreeObserver
     /**
      * Handle the NoteTree "updated" event.
      *
-     * @param  \App\Models\NoteTree  $noteTree
+     * @param \App\Models\NoteTree $noteTree
      * @return void
      */
     public function updated(NoteTree $noteTree)
@@ -42,7 +48,7 @@ class NoteTreeObserver
     /**
      * Handle the NoteTree "deleted" event.
      *
-     * @param  \App\Models\NoteTree  $noteTree
+     * @param \App\Models\NoteTree $noteTree
      * @return void
      */
     public function deleted(NoteTree $noteTree)
@@ -53,7 +59,7 @@ class NoteTreeObserver
     /**
      * Handle the NoteTree "restored" event.
      *
-     * @param  \App\Models\NoteTree  $noteTree
+     * @param \App\Models\NoteTree $noteTree
      * @return void
      */
     public function restored(NoteTree $noteTree)
@@ -64,7 +70,7 @@ class NoteTreeObserver
     /**
      * Handle the NoteTree "force deleted" event.
      *
-     * @param  \App\Models\NoteTree  $noteTree
+     * @param \App\Models\NoteTree $noteTree
      * @return void
      */
     public function forceDeleted(NoteTree $noteTree)

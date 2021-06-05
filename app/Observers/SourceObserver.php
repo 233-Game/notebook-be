@@ -13,6 +13,9 @@ class SourceObserver
 
     private function setInfo(Source $source)
     {
+        if (!$source['note_catalog_id']){
+            $source['note_catalog_id']=0;
+        }
         $source['user_id'] = auth()->id();
         $source['size'] = $this->calculateSize($source['content']);
     }

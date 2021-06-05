@@ -4,12 +4,15 @@
 namespace App\Application\NoteTree;
 
 
-class CreateNoteTreeApplication
+class BindNoteTreeApplication
 {
-
     public function setParameter()
     {
         return $this;
     }
 
+    public function execute()
+    {
+
+    }
 }

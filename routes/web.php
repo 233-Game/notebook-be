@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\AuthorizesController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Base\UploadController;
-use App\Http\Controllers\Tag\TagController;
+use App\Http\Controllers\Note\TagsController;
 use App\Http\Controllers\User\InfoController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +53,8 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::put('source/{source}', [ContentController::class, 'show'])->whereNumber('source');
     Route::put('source/{source}', [ContentController::class, 'update'])->whereNumber('source');
     Route::delete('source/{source}', [ContentController::class, 'delete'])->whereNumber('source');
+    Route::post('source/collect', [ContentController::class, 'collect']);
+    Route::post('source/unCollect', [ContentController::class, 'unCollect']);
 
     // 文件树
     Route::get('noteTree/list', [NoteTreeController::class, 'getList']);
@@ -64,18 +66,21 @@ Route::middleware(['jwt.auth'])->group(function () {
     // 笔记本
     Route::get('noteBook/list', [NoteBookController::class, 'getList']);
     Route::post('noteBook/create', [NoteBookController::class, 'create']);
+    Route::post('noteBook/bindSource', [NoteBookController::class, 'bindSource']);
+    Route::post('noteBook/unbindSource', [NoteBookController::class, 'unbindSource']);
     Route::post('noteBook/createSource', [NoteBookController::class, 'createSource']);
     Route::put('noteBook/{noteBook}', [NoteBookController::class, 'update'])->whereNumber('noteBook');
     Route::delete('noteBook/{noteBook}', [NoteBookController::class, 'delete'])->whereNumber('noteBook');
     Route::get('noteBook/{noteBook}', [NoteBookController::class, 'show'])->whereNumber('noteBook');
 
     // 标签
-    Route::post('tag/create', [TagController::class, 'create']);
-    Route::put('tag/{id}', [TagController::class, 'update'])->whereNumber('id');
-    Route::delete('tag/{id}', [TagController::class, 'delete'])->whereNumber('id');
-    Route::get('tag/{id}', [TagController::class, 'show'])->whereNumber('id');
-    Route::post('tag/bind', [TagController::class, 'bind']);
-
+    Route::post('tag/create', [TagsController::class, 'create']);
+    Route::put('tag/{tag}', [TagsController::class, 'update'])->whereNumber('tag');
+    Route::delete('tag/{tag}', [TagsController::class, 'delete'])->whereNumber('tag');
+    Route::post('tag/bind', [TagsController::class, 'bind']);
+    Route::post('tag/unbind', [TagsController::class, 'unbind']);
+    Route::get('tag/list', [TagsController::class, 'getList']);
+    Route::get('tag/sources', [TagsController::class, 'showSources'])->whereNumber('tag');
 
     // 外部数据源
     Route::post('remote/create');
@@ -88,7 +93,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('tools/transform');
 
     //通用接口
-    Route::post('upload', UploadController::class);
+    Route::post('upload/{type?}', UploadController::class);
     Route::post('logout', LogoutController::class);
 });
 

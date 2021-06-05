@@ -15,12 +15,28 @@ class Source extends Model
         'type',
         'content',
         'size',
-        'user_id'
+        'user_id',
+        'note_catalog_id'
     ];
 
     protected $casts = [
         'content' => Json::class
     ];
+
+
+    public function tags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class,'source_tags');
+    }
+
+    public function notebook(): \Illuminate\Database\Eloquent\Relations\HasOneThrough
+    {
+        return $this->hasOneThrough(NoteBook::class,NoteCatalog::class,'id','id','note_catalog_id','notebook_id');
+    }
+
+    public function catalog(){
+
+    }
 
 
 }

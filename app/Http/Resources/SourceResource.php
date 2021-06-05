@@ -2,10 +2,20 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\Source\SourceStatus;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class SourceResource extends JsonResource
 {
+    protected $summary = true;
+
+    public function __construct($resource, $summary = true)
+    {
+        $this->summary = is_numeric($summary) ? true : $summary;
+        parent::__construct($resource);
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -14,13 +24,23 @@ class SourceResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $data = [
             'id' => $this->id,
             'title' => $this->title,
-            'content' => $this->content,
-            'size'=>$this->size,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'content' => '',
+            'type' => $this->content['type'] ?? 1,
+            'size' => $this->size,
+            'collect' => $this->status === SourceStatus::COLLECTED,
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans()
         ];
+        if ($this->summary) {
+            $data['content'] = Str::substr($this->content['data'], 0, 50);
+        } else {
+            $data['content'] = $this->content['data'] ?? $this->content;
+            $data['tags'] = TagResource::collection($this->tags);
+            $data['notebook'] = new  NotebookResource($this->notebook);
+        }
+        return $data;
     }
 }

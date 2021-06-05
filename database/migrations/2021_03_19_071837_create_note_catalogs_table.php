@@ -15,12 +15,10 @@ class CreateNoteCatalogsTable extends Migration
     {
         Schema::create('note_catalogs', function (Blueprint $table) {
             $table->id();
-            $table->integer('note_id')->unsigned()->index('NID')->comment('笔记本ID');
-            $table->integer('pid')->unsigned()->default(0)->index('PID')->comment('父级id');
-            $table->integer('source_id')->unsigned()->default(0)->index('SID')->comment('源数据');
+            $table->integer('notebook_id')->unsigned()->index('NID')->comment('笔记本ID');
             $table->string('title')->comment('标题');
-            $table->integer('sort')->unsigned()->comment('排序');
-            $table->tinyInteger('status')->comment('状态');
+            $table->integer('sort')->default(0)->unsigned()->comment('排序');
+            $table->tinyInteger('status')->default(0)->comment('状态');
             $table->timestamps();
         });
     }

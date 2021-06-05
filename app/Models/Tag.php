@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'name',
+        'desc',
+    ];
+    protected $hidden = ['user_id'];
+
+    public function sources()
+    {
+        return $this->belongsToMany(Source::class, 'source_tags');
+    }
 }

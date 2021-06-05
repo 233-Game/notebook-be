@@ -5,16 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NoteCatalog extends Model
+class SourceTag extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'notebook_id',
-        'pid',
+    protected $fillable=[
+        'tag_id',
         'source_id',
-        'title',
-        'sort',
-        'status',
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -14,9 +15,16 @@ class Controller extends BaseController
     protected function format($res)
     {
         if ($res) {
+            if ($res instanceof Model)
+                return $this->success($res->id);
             return $this->success();
         }
         return $this->failed('');
+    }
+
+    public function json($data): \Illuminate\Http\JsonResponse
+    {
+        return response()->json($data);
     }
 
     protected function formatDelete($res): \Illuminate\Http\JsonResponse
@@ -29,23 +37,29 @@ class Controller extends BaseController
 
     protected function formatApplication($res): \Illuminate\Http\JsonResponse
     {
-        return $this->success();
+        if (is_bool($res) && !$res) {
+            return $this->failed('error');
+        }
+        if ($res instanceof Model) {
+            $res = $res->id;
+        }
+        return $this->success($res);
     }
 
     protected function failed($message, $code = 1, $data = []): \Illuminate\Http\JsonResponse
     {
-        return response()->json([
+        return $this->json([
             'code' => $code,
             'message' => $message,
             'data' => $data
         ]);
     }
 
-    protected function success($data = true, $code = 0): \Illuminate\Http\JsonResponse
+    protected function success($data = true, $message = 'success', $code = 0): \Illuminate\Http\JsonResponse
     {
-        return response()->json([
+        return $this->json([
             'code' => $code,
-            'message' => 'success',
+            'message' => $message,
             'data' => $data
         ]);
     }
@@ -55,7 +69,7 @@ class Controller extends BaseController
         $data = [
             'user' => auth('api')->user(),
             'token' => $token,
-            'expired_at'=> auth('api')->factory()->getTTL() * 60
+            'expired_at' => auth('api')->factory()->getTTL() * 60
         ];
         if (!empty($rememberToken)) {
             $data['remember_token'] = $rememberToken;

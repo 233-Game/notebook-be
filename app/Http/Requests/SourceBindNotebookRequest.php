@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class SourceRequest extends BaseRequest
+class SourceBindNotebookRequest extends BaseRequest
 {
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -14,8 +15,8 @@ class SourceRequest extends BaseRequest
     public function rules()
     {
         return [
-            'content'=>'required',
-            'title'=>'required|string'
+            'source_id'=>'required|exists:sources,id',
+            'notebook_id'=>'required|exists:note_books,id'
         ];
     }
 }

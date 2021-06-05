@@ -4,8 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SourceRequest extends BaseRequest
+class TagBindRequest extends BaseRequest
 {
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -14,8 +15,8 @@ class SourceRequest extends BaseRequest
     public function rules()
     {
         return [
-            'content'=>'required',
-            'title'=>'required|string'
+            'tag_id'=>'required|exists:tags,id',
+            'source_id'=>'required|exists:sources,id'
         ];
     }
 }

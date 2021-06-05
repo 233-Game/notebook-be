@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\NoteBook;
 use App\Models\NoteTree;
 use App\Models\Source;
+use App\Models\Tag;
 use App\Observers\NoteBookObserver;
 use App\Observers\NoteTreeObserver;
 use App\Observers\SourceObserver;
+use App\Observers\TagObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -36,5 +38,6 @@ class EventServiceProvider extends ServiceProvider
         Source::observe(SourceObserver::class);
         NoteTree::observe(NoteTreeObserver::class);
         NoteBook::observe(NoteBookObserver::class);
+        Tag::observe(TagObserver::class);
     }
 }

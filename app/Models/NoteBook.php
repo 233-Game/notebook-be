@@ -25,4 +25,8 @@ class NoteBook extends Model
     ];
 
     protected $casts=['config'=>Json::class];
+
+    public function sources(){
+        return $this->hasManyThrough(Source::class,NoteCatalog::class,'notebook_id','note_catalog_id','id','id');
+    }
 }

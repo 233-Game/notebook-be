@@ -14,6 +14,9 @@ class NoteBookObserver
         if (empty($noteBook['version'])){
             $noteBook['version'] = 0;
         }
+        if (empty($noteBook['desc'])){
+            $noteBook['desc'] = '';
+        }
     }
 
     /**
